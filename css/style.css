@@ -506,10 +506,11 @@ input[type=submit], button {
 .rel {
   position: relative;
 }
+
 .qr {
   position: absolute;
   width: 200px;
-  right: -5%;
+  right: 0;
 }
 
 .hidden {

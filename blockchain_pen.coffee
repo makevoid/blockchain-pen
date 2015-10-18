@@ -1,7 +1,7 @@
 b  = require 'bitcore'
-# bc = require 'blockchain-api-basic'
+bc = require 'blockchain-api-basic'
 # request = require 'superagent'
-bc = { balance: -> }
+# bc = { balance: -> }
 # bc = BchainApi
 
 env = if typeof window != "undefined" then "browser" else "node"

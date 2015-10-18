@@ -3,9 +3,7 @@ var KeyChain, Pen, b, bc, env, fs;
 
 b = require('bitcore');
 
-bc = {
-  balance: function() {}
-};
+bc = require('blockchain-api-basic');
 
 env = typeof window !== "undefined" ? "browser" : "node";
 

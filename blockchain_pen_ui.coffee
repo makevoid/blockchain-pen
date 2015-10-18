@@ -7,6 +7,8 @@ $ ->
   qr_el = $ ".qr"
   addr  = $ ".address a"
   adqr  = $ ".address a, .qr"
+  mex_n = $ ".messages_num"
+  topup = $ ".topup_msg"
 
   message = ->
     mex.val()
@@ -19,8 +21,13 @@ $ ->
 
   set_address = (address) ->
     addr.html address
-    qr = new QRCode qr_el.get(0), address
-    console.log qr
+    new QRCode qr_el.get(0),
+      text:  address,
+      width:  200,
+      height: 200,
+      colorDark : "#000000",
+      colorLight : "#ffffff"
+      correctLevel : QRCode.CorrectLevel.H
 
   # events
 
@@ -34,9 +41,16 @@ $ ->
   adqr.on "click", ->
     qr_el.toggleClass "hidden"
 
+
+
   # keychain
 
   #
   kc = new KeyChain
   console.log kc.address_s
   set_address kc.address_s
+  console.log "asd"
+  kc.balance (amount) ->
+    console.log "asd222"
+    console.log(amount)
+  console.log "asd"

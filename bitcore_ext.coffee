@@ -1,9 +1,18 @@
+TX_FEE = 10000
+
+bitcore = require 'bitcore'
+
 class BitcoreExt
+  constructor: (@address, @pvt_key_string) ->
+
   sign_and_broadcast: (message, utxos, callback) ->
+
+    # localstorage
+    store = false
 
     # tools
     does_include = (array, element) ->
-      # TODO
+      array.indexOf(element) != -1
 
     is_empty = (val) ->
       !val || val == ""
@@ -15,16 +24,17 @@ class BitcoreExt
     utxos_out = []
     total_amount_sathoshis = 0
 
-    utxos.each do |utxo|
+    for utxo in utxos
       amount_satoshis = utxo.value
       total_amount_sathoshis += amount_satoshis
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC
       console.log amount_btc
       tx_id = utxo.tx_hash_big_endian
 
-      if store.utxos && does_include(JSON.parse(store.utxos), tx_id)
+      if store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)
         console.log "skipping transaction: #{tx_id}"
-        next
+        continue
+
       utxos_out.push
         address:      @address
         txId:         tx_id
@@ -38,24 +48,25 @@ class BitcoreExt
 
     unless is_empty(utxos)
       fee = TX_FEE # from 5000 it should be a good fee
-      utxos_out = utxos_out.to_n
       address = @address
       amount  = tx_amount
       pvt_key = @pvt_key_string
       console.log "utxos_out: ", utxos_out
 
-      transaction = `new bitcore.Transaction()
+      transaction = new bitcore.Transaction()
         .from(utxos_out)
         .to(address, amount)
         .change(address)
         .fee(fee)
         .addData(message)
-        .sign(pvt_key)`
+        .sign(pvt_key)
 
-      tx_hash = `transaction.serialize()`
+      tx_hash = transaction.serialize()
       console.log tx_hash
 
-      Blockchain.pushtx tx_hash, self.pushtx_callback(utxos_out, callback)
+
+      console.log "TODO: push"
+      # Blockchain.pushtx tx_hash, self.pushtx_callback(utxos_out, callback)
 
       # TODO:
       #
@@ -70,6 +81,8 @@ class BitcoreExt
       # }
     else
       console.log "ERROR: Not enough UTXOs"
-    end
 
     console.log "END"
+
+
+module.exports = BitcoreExt

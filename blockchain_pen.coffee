@@ -11,6 +11,7 @@ if env == "node"
   fs = require 'fs'
 
 
+
 class Pen
   write: (privateKey, message) ->
     pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push"
@@ -39,8 +40,8 @@ class KeyChain
     pen = new Pen
     pen.write @privateKey, "test_message"
 
-  unspent: ->
-    bc.unspent @address
+  unspent: (callback) ->
+    bc.unspent @address, callback
 
   load_saved_key: ->
     if env == "node" then @load_saved_key_node() else @load_saved_key_browser()
@@ -87,3 +88,16 @@ class KeyChain
 
 
 # module.exports = KeyChain
+
+
+
+kc = new KeyChain
+kc.unspent (unspent) ->
+  if unspent.error
+    console.log unspent.error
+  else
+    unspent = unspent.unspent_outputs
+    BitcoreExt = require './bitcore_ext'
+    be = new BitcoreExt kc.address_s, kc.privateKey.toString()
+    be.sign_and_broadcast "EW test :D!", unspent, (tx) ->
+      console.log "TX DATA #{tx}"

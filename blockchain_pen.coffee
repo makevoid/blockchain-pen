@@ -51,6 +51,7 @@ class KeyChain
       fs.readFileSync(path).toString()
 
   load_saved_key_browser: ->
+    localStorage.bp_pvt_key if localStorage && localStorage.bp_pvt_key
 
   save_key: ->
     if env == "node" then @save_key_node() else @save_key_browser()
@@ -59,7 +60,7 @@ class KeyChain
     fs.writeFileSync './.key', @privateKey
 
   save_key_browser: ->
-    @privateKey
+    localStorage.bp_pvt_key = @privateKey
 
   # accessors
 

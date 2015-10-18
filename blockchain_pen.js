@@ -72,7 +72,11 @@ KeyChain = (function() {
     }
   };
 
-  KeyChain.prototype.load_saved_key_browser = function() {};
+  KeyChain.prototype.load_saved_key_browser = function() {
+    if (localStorage && localStorage.bp_pvt_key) {
+      return localStorage.bp_pvt_key;
+    }
+  };
 
   KeyChain.prototype.save_key = function() {
     if (env === "node") {
@@ -87,7 +91,7 @@ KeyChain = (function() {
   };
 
   KeyChain.prototype.save_key_browser = function() {
-    return this.privateKey;
+    return localStorage.bp_pvt_key = this.privateKey;
   };
 
   KeyChain.prototype.privateKey = function() {

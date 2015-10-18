@@ -4,7 +4,8 @@ $ ->
   mex   = $ "input[name=message]"
   chars = $ ".chars_count"
   btn   = $ "button.main"
-  qr    = $ ".qr"
+  qr_el = $ ".qr"
+  addr  = $ ".address a"
   adqr  = $ ".address a, .qr"
 
   message = ->
@@ -16,6 +17,11 @@ $ ->
   write = (message) ->
     console.log "write #{message}"
 
+  set_address = (address) ->
+    addr.html address
+    qr = new QRCode qr_el.get(0), address
+    console.log qr
+
   # events
 
   mex.on "keyup", ->
@@ -26,10 +32,11 @@ $ ->
     write message()
 
   adqr.on "click", ->
-    qr.toggleClass "hidden"
+    qr_el.toggleClass "hidden"
 
   # keychain
 
-  # new QRCode($("body").get(0), "asd")
+  #
   kc = new KeyChain
   console.log kc.address_s
+  set_address kc.address_s

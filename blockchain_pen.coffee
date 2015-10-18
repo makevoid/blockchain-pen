@@ -1,6 +1,8 @@
 b  = require 'bitcore'
-bc = require 'blockchain-api-basic'
-request = require 'superagent'
+# bc = require 'blockchain-api-basic'
+# request = require 'superagent'
+bc = { balance: -> }
+# bc = BchainApi
 
 env = if typeof window != "undefined" then "browser" else "node"
 console.log "running in env: #{env}"
@@ -8,10 +10,6 @@ console.log "running in env: #{env}"
 if env == "node"
   fs = require 'fs'
 
-
-# class Key
-#   constructor: (@privateKey) ->
-#     console.log @privateKey
 
 class Pen
   write: (privateKey, message) ->
@@ -74,18 +72,17 @@ class KeyChain
   address_s: ->
     @address_s
 
-# KeyChain.antani()
 
-# k = new Key "asd"
-# console.log k.privateKey
-
-kc = new KeyChain
-console.log kc.address_s
+# kc = new KeyChain
+# console.log kc.address_s
 # unspent = kc.unspent()
 # if unspent.error
 #   console.log unspent.error
 # else
 #   unspent
 
-kc.balance (amount) ->
-  console.log "balance: #{amount} satoshi"
+# kc.balance (amount) ->
+#   console.log "balance: #{amount} satoshi"
+
+
+# module.exports = KeyChain

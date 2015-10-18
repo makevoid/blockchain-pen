@@ -14,7 +14,10 @@
   <body>
     <div class="container">
       <div class="align-right address">
-        <a href="bitcoin:1address">1address</a>
+        <a href="javascript:void(0)">1address</a>
+        <div class="row rel">
+          <img class="qr hidden" src="./img/qr_tmp.png" alt="" />
+        </div>
       </div>
       <div class="row">
         <header>
@@ -53,7 +56,11 @@
       </div>
     </div>
     <script type="text/javascript" src="./vendor/zepto.js"></script>
-    <script type="text/javascript" src="./vendor/bitcore.js"></script>
+    <!-- <script type="text/javascript" src="./vendor/bitcore.js"></script> -->
+    <!-- <script type="text/javascript" src="./bower_components/superagent/lib/client.js"></script>-->
+    <script type="text/javascript" src="./bower_components/bitcore/bitcore.js"></script>
+    <script type="text/javascript" src="./bower_components/blockchain-api-basic/bundle.js"></script>
+    <script type="text/javascript" src="./blockchain_pen.js"></script>
     <script type="text/javascript" src="./blockchain_pen_ui.js"></script>
   </body>
 </html>

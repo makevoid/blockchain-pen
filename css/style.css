@@ -500,3 +500,18 @@ input[type=submit], button {
 
 .align-right {
   text-align: right; }
+
+/* EXTRA styles */
+
+.rel {
+  position: relative;
+}
+.qr {
+  position: absolute;
+  width: 200px;
+  right: -5%;
+}
+
+.hidden {
+  display: none;
+}

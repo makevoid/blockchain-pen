@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blockchain Pen</title>
+    <meta name="description" content="Blockchain Pen - write your permantent message, prove that that document existed at that point in time">
+    <meta name="author" content="Francesco 'makevoid' Canessa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="./css/vendor/normalize.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="./css/style.css" media="screen" charset="utf-8">
+    <!-- <link rel="icon" type="image/png" href="images/favicon.png" /> -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="align-right address">
+        <a href="bitcoin:1address">1address</a>
+      </div>
+      <div class="row">
+        <header>
+          <div class="row">
+            <div class="one columns">
+              <img src="/img/stylus.svg">
+            </div>
+            <div class="five columns">
+              <h1>Blockchain Pen</h1>
+            </div>
+          </div>
+        </header>
+        <div class="spacer50"></div>
+        <div class="bc_stylus" >
+          <div class="message_input" >
+            <div class="row align-right">
+              <span class="chars_count">0
+              </span>
+              <span> / 75 chars
+              </span>
+              </div>
+              <div class="spacer10">
+              </div>
+              <div class="row">
+                <div class="five columns">
+                  <input name="message" placeholder="your important message..." type="text" maxlength=75>
+                </div>
+                <div class="one columns">
+                <button class="main">
+                  Write
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="./vendor/zepto.js"></script>
+    <script type="text/javascript" src="./vendor/bitcore.js"></script>
+    <script type="text/javascript" src="./blockchain_pen_ui.js"></script>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bitcore": "^0.13.5",
+    "blockchain-api-basic": "git://github.com/makevoid/blockchain-info-api-basic",
+    "superagent": "^1.4.0"
+  }
+}

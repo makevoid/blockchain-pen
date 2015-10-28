@@ -85,4 +85,4 @@ class BitcoreExt
     console.log "END"
 
 
-module.exports = BitcoreExt
+module.exports = BitcoreExt if module?

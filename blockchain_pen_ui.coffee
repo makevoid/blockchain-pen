@@ -1,5 +1,11 @@
 # bp = require "blockchain_pen"
 
+env = if typeof window != "undefined" then "browser" else "node"
+
+if env == "node"
+  BitcoreExt = require './bitcore_ext'
+
+
 $ ->
   mex   = $ "input[name=message]"
   chars = $ ".chars_count"
@@ -47,10 +53,17 @@ $ ->
 
   #
   kc = new KeyChain
-  console.log kc.address_s
   set_address kc.address_s
-  console.log "asd"
-  kc.balance (amount) ->
-    console.log "asd222"
-    console.log(amount)
-  console.log "asd"
+  kc.balance (amount) =>
+    console.log "balance", amount
+    messages = Math.ceil amount / 1000
+    mex_n.html messages
+
+  # kc.unspent (unspent) ->
+  #   if unspent.error
+  #     console.log unspent.error
+  #   else
+  #     unspent = unspent.unspent_outputs
+  #     be = new BitcoreExt kc.address_s, kc.privateKey.toString()
+  #     be.sign_and_broadcast "EX test :D!", unspent, (tx) ->
+  #       console.log "TX DATA #{tx}"

@@ -1,28 +1,19 @@
-b  = require 'bitcore'
-bc = require 'blockchain-api-basic'
-# request = require 'superagent'
-# bc = { balance: -> }
-# bc = BchainApi
 
 env = if typeof window != "undefined" then "browser" else "node"
 console.log "running in env: #{env}"
 
+b  = require 'bitcore'
+
 if env == "node"
   fs = require 'fs'
+  bc = require 'blockchain-api-basic'
+  BitcoreExt = require './bitcore_ext'
+else
+  b = bitcore
+  bc = BchainApi
 
-
-
-class Pen
-  write: (privateKey, message) ->
-    pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push"
-    request
-    tx: tx_hash
-
-    # callback
-    # tx_info.tx.hash
 
 class KeyChain
-
   key_path: "./.key"
 
   constructor: ->
@@ -75,29 +66,27 @@ class KeyChain
     @address_s
 
 
-# kc = new KeyChain
-# console.log kc.address_s
-# unspent = kc.unspent()
-# if unspent.error
-#   console.log unspent.error
-# else
-#   unspent
+class Pen
+  constructor: ->
+    @kc = new KeyChain
+
+  write: (message) ->
+    @kc.unspent (unspent) =>
+      if unspent.error
+        console.log unspent.error
+      else
+        unspent = unspent.unspent_outputs
+        be = new BitcoreExt @kc.address_s, @kc.privateKey.toString()
+        be.sign_and_broadcast message, unspent, (tx) ->
+          console.log "TX DATA #{tx}"
+
 
 # kc.balance (amount) ->
 #   console.log "balance: #{amount} satoshi"
 
-
 # module.exports = KeyChain
 
-
-
-kc = new KeyChain
-kc.unspent (unspent) ->
-  if unspent.error
-    console.log unspent.error
-  else
-    unspent = unspent.unspent_outputs
-    BitcoreExt = require './bitcore_ext'
-    be = new BitcoreExt kc.address_s, kc.privateKey.toString()
-    be.sign_and_broadcast "EW test :D!", unspent, (tx) ->
-      console.log "TX DATA #{tx}"
+# message = "EW test :D!"
+#
+# pen = new Pen
+# pen.write message

@@ -10,6 +10,6 @@ guard 'coffeescript', coffeescript_options do
 end
 
 guard :concat, type:      "js",
-               files:     %w(bitcore_ext blockchain_pen blockchain_pen_ui),
+               files:     %w(bitcore_ext keychain pen blockchain_pen_ui),
                input_dir: "dist",
                output:    "dist/bundle"

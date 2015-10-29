@@ -64,7 +64,6 @@ class BitcoreExt
       tx_hash = transaction.serialize()
       console.log tx_hash
 
-
       console.log "TODO: push"
       # Blockchain.pushtx tx_hash, self.pushtx_callback(utxos_out, callback)
 

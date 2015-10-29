@@ -48,22 +48,11 @@ $ ->
     qr_el.toggleClass "hidden"
 
 
-
-  # keychain
-
-  #
-  kc = new KeyChain
-  set_address kc.address_s
-  kc.balance (amount) =>
+  pen = new Pen
+  set_address pen.address()
+  pen.balance (amount) =>
     console.log "balance", amount
     messages = Math.ceil amount / 1000
     mex_n.html messages
-
-  # kc.unspent (unspent) ->
-  #   if unspent.error
-  #     console.log unspent.error
-  #   else
-  #     unspent = unspent.unspent_outputs
-  #     be = new BitcoreExt kc.address_s, kc.privateKey.toString()
-  #     be.sign_and_broadcast "EX test :D!", unspent, (tx) ->
-  #       console.log "TX DATA #{tx}"
+  pen.write "test", (tx) ->
+    console.log "finished! - tx:", tx

@@ -172,7 +172,17 @@ Pen = (function() {
     this.kc = new KeyChain;
   }
 
-  Pen.prototype.write = function(message) {
+  Pen.prototype.address = function() {
+    return this.kc.address_s;
+  };
+
+  Pen.prototype.balance = function(callback) {
+    return this.kc.balance(function(amount) {
+      return callback(amount);
+    });
+  };
+
+  Pen.prototype.write = function(message, callback) {
     return this.kc.unspent((function(_this) {
       return function(unspent) {
         var be;
@@ -182,7 +192,8 @@ Pen = (function() {
           unspent = unspent.unspent_outputs;
           be = new BitcoreExt(_this.kc.address_s, _this.kc.privateKey.toString());
           return be.sign_and_broadcast(message, unspent, function(tx) {
-            return console.log("TX DATA " + tx);
+            console.log("TX DATA " + tx);
+            return callback(tx);
           });
         }
       };
@@ -202,7 +213,7 @@ if (env === "node") {
 }
 
 $(function() {
-  var addr, adqr, btn, chars, kc, message, mex, mex_n, qr_el, set_address, topup, update_chars_count, write;
+  var addr, adqr, btn, chars, message, mex, mex_n, pen, qr_el, set_address, topup, update_chars_count, write;
   mex = $("input[name=message]");
   chars = $(".chars_count");
   btn = $("button.main");
@@ -241,9 +252,9 @@ $(function() {
   adqr.on("click", function() {
     return qr_el.toggleClass("hidden");
   });
-  kc = new KeyChain;
-  set_address(kc.address_s);
-  return kc.balance((function(_this) {
+  pen = new Pen;
+  set_address(pen.address());
+  pen.balance((function(_this) {
     return function(amount) {
       var messages;
       console.log("balance", amount);
@@ -251,4 +262,7 @@ $(function() {
       return mex_n.html(messages);
     };
   })(this));
+  return pen.write("test", function(tx) {
+    return console.log("finished! - tx:", tx);
+  });
 });

@@ -7,7 +7,7 @@ if (env === "node") {
 }
 
 $(function() {
-  var addr, adqr, btn, chars, kc, message, mex, mex_n, qr_el, set_address, topup, update_chars_count, write;
+  var addr, adqr, btn, chars, message, mex, mex_n, pen, qr_el, set_address, topup, update_chars_count, write;
   mex = $("input[name=message]");
   chars = $(".chars_count");
   btn = $("button.main");
@@ -46,9 +46,9 @@ $(function() {
   adqr.on("click", function() {
     return qr_el.toggleClass("hidden");
   });
-  kc = new KeyChain;
-  set_address(kc.address_s);
-  return kc.balance((function(_this) {
+  pen = new Pen;
+  set_address(pen.address());
+  pen.balance((function(_this) {
     return function(amount) {
       var messages;
       console.log("balance", amount);
@@ -56,4 +56,7 @@ $(function() {
       return mex_n.html(messages);
     };
   })(this));
+  return pen.write("test", function(tx) {
+    return console.log("finished! - tx:", tx);
+  });
 });

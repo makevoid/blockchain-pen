@@ -64,29 +64,3 @@ class KeyChain
 
   address_s: ->
     @address_s
-
-
-class Pen
-  constructor: ->
-    @kc = new KeyChain
-
-  write: (message) ->
-    @kc.unspent (unspent) =>
-      if unspent.error
-        console.log unspent.error
-      else
-        unspent = unspent.unspent_outputs
-        be = new BitcoreExt @kc.address_s, @kc.privateKey.toString()
-        be.sign_and_broadcast message, unspent, (tx) ->
-          console.log "TX DATA #{tx}"
-
-
-# kc.balance (amount) ->
-#   console.log "balance: #{amount} satoshi"
-
-# module.exports = KeyChain
-
-# message = "EW test :D!"
-#
-# pen = new Pen
-# pen.write message

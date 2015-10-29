@@ -57,7 +57,7 @@ BitcoreExt = (function() {
 
   BitcoreExt.prototype.sign_and_broadcast = function(message, utxos, callback) {
     var address, amount, amount_btc, amount_satoshis, does_include, fee, i, is_empty, len, pvt_key, store, total_amount_sathoshis, transaction, tx_amount, tx_hash, tx_id, utxo, utxos_out;
-    store = false;
+    store = true;
     does_include = function(array, element) {
       return array.indexOf(element) !== -1;
     };

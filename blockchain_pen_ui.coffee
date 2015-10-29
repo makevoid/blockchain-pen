@@ -15,6 +15,7 @@ $ ->
   adqr  = $ ".address a, .qr"
   mex_n = $ ".messages_num"
   topup = $ ".topup_msg"
+  out   = $ ".outcome"
 
   message = ->
     mex.val()
@@ -35,18 +36,8 @@ $ ->
       colorLight : "#ffffff"
       correctLevel : QRCode.CorrectLevel.H
 
-  # events
 
-  mex.on "keyup", ->
-    console.log "keyup on input: mex (main message)"
-    update_chars_count()
-
-  btn.on "click", ->
-    write message()
-
-  adqr.on "click", ->
-    qr_el.toggleClass "hidden"
-
+  # pen (main)
 
   pen = new Pen
   set_address pen.address()
@@ -54,5 +45,19 @@ $ ->
     console.log "balance", amount
     messages = Math.ceil amount / 1000
     mex_n.html messages
-  pen.write "test", (tx) ->
-    console.log "finished! - tx:", tx
+
+
+  # events
+
+  mex.on "keyup", ->
+    update_chars_count()
+
+  btn.on "click", ->
+    out.show()
+    pen.write "test", (tx) ->
+      console.log "finished! - tx:", tx
+      out.html "tx written: #{tx}"
+
+
+  adqr.on "click", ->
+    qr_el.toggleClass "hidden"

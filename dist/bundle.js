@@ -57,7 +57,7 @@ BitcoreExt = (function() {
 
   BitcoreExt.prototype.sign_and_broadcast = function(message, utxos, callback) {
     var address, amount, amount_btc, amount_satoshis, does_include, fee, i, is_empty, len, pvt_key, store, total_amount_sathoshis, transaction, tx_amount, tx_hash, tx_id, utxo, utxos_out;
-    store = false;
+    store = true;
     does_include = function(array, element) {
       return array.indexOf(element) !== -1;
     };
@@ -258,7 +258,7 @@ if (env === "node") {
 }
 
 $(function() {
-  var addr, adqr, btn, chars, message, mex, mex_n, pen, qr_el, set_address, topup, update_chars_count, write;
+  var addr, adqr, btn, chars, message, mex, mex_n, out, pen, qr_el, set_address, topup, update_chars_count, write;
   mex = $("input[name=message]");
   chars = $(".chars_count");
   btn = $("button.main");
@@ -267,6 +267,7 @@ $(function() {
   adqr = $(".address a, .qr");
   mex_n = $(".messages_num");
   topup = $(".topup_msg");
+  out = $(".outcome");
   message = function() {
     return mex.val();
   };
@@ -287,16 +288,6 @@ $(function() {
       correctLevel: QRCode.CorrectLevel.H
     });
   };
-  mex.on("keyup", function() {
-    console.log("keyup on input: mex (main message)");
-    return update_chars_count();
-  });
-  btn.on("click", function() {
-    return write(message());
-  });
-  adqr.on("click", function() {
-    return qr_el.toggleClass("hidden");
-  });
   pen = new Pen;
   set_address(pen.address());
   pen.balance((function(_this) {
@@ -307,7 +298,17 @@ $(function() {
       return mex_n.html(messages);
     };
   })(this));
-  return pen.write("test", function(tx) {
-    return console.log("finished! - tx:", tx);
+  mex.on("keyup", function() {
+    return update_chars_count();
+  });
+  btn.on("click", function() {
+    out.show();
+    return pen.write("test", function(tx) {
+      console.log("finished! - tx:", tx);
+      return out.html("tx written: " + tx);
+    });
+  });
+  return adqr.on("click", function() {
+    return qr_el.toggleClass("hidden");
   });
 });

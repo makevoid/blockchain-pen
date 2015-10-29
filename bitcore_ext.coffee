@@ -42,7 +42,7 @@ class BitcoreExt
   sign_and_broadcast: (message, utxos, callback) ->
 
     # localstorage
-    store = false
+    store = true
 
     # tools
     does_include = (array, element) ->

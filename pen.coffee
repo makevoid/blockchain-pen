@@ -17,5 +17,4 @@ class Pen
         unspent = unspent.unspent_outputs
         be = new BitcoreExt @kc.address_s, @kc.privateKey.toString()
         be.sign_and_broadcast message, unspent, (tx) ->
-          console.log "TX DATA #{tx}"
           callback tx

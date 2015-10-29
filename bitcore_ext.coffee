@@ -2,6 +2,40 @@ TX_FEE = 10000
 
 bitcore = require 'bitcore'
 
+class BlockCypher
+  @pushtx: (tx_hash, callback) ->
+    pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push"
+
+    post_params =
+      tx: tx_hash
+
+    HTTP.post pushtx_url, post_params, callback
+
+
+class HTTP
+  @post: (url, params, callback) ->
+
+    success = (data) ->
+      console.log "POST", url
+      callback data
+
+    data =
+      tx: params.tx
+
+    console.log JSON.stringify(data)
+
+    ajax =
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      dataType: 'json',
+      processData: false,
+      type: 'POST',
+      success: success,
+      url: url
+
+    $.ajax ajax
+
+
 class BitcoreExt
   constructor: (@address, @pvt_key_string) ->
 
@@ -44,8 +78,6 @@ class BitcoreExt
 
       break if amount_satoshis > TX_FEE+tx_amount
 
-    console.log "utxos_out:",  utxos_out.size
-
     unless is_empty(utxos)
       fee = TX_FEE # from 5000 it should be a good fee
       address = @address
@@ -62,26 +94,12 @@ class BitcoreExt
         .sign(pvt_key)
 
       tx_hash = transaction.serialize()
-      console.log tx_hash
 
-      console.log "TODO: push"
-      # Blockchain.pushtx tx_hash, self.pushtx_callback(utxos_out, callback)
+      BlockCypher.pushtx tx_hash, ->
+        callback tx_hash
 
-      # TODO:
-      #
-      # try {
-      #
-      #   txHash = transaction.serialize();
-      # } catch(error) {
-      #
-      #   reject({
-      #     'message': 'Error serializing the transaction: ' + error.message
-      #   });
-      # }
     else
       console.log "ERROR: Not enough UTXOs"
-
-    console.log "END"
 
 
 module.exports = BitcoreExt if module?

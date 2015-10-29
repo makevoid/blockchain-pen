@@ -25,7 +25,6 @@ Pen = (function() {
           unspent = unspent.unspent_outputs;
           be = new BitcoreExt(_this.kc.address_s, _this.kc.privateKey.toString());
           return be.sign_and_broadcast(message, unspent, function(tx) {
-            console.log("TX DATA " + tx);
             return callback(tx);
           });
         }

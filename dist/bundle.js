@@ -1,8 +1,53 @@
-var BitcoreExt, TX_FEE, bitcore;
+var BitcoreExt, BlockCypher, HTTP, TX_FEE, bitcore;
 
 TX_FEE = 10000;
 
 bitcore = require('bitcore');
+
+BlockCypher = (function() {
+  function BlockCypher() {}
+
+  BlockCypher.pushtx = function(tx_hash, callback) {
+    var post_params, pushtx_url;
+    pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push";
+    post_params = {
+      tx: tx_hash
+    };
+    return HTTP.post(pushtx_url, post_params, callback);
+  };
+
+  return BlockCypher;
+
+})();
+
+HTTP = (function() {
+  function HTTP() {}
+
+  HTTP.post = function(url, params, callback) {
+    var ajax, data, success;
+    success = function(data) {
+      console.log("POST", url);
+      return callback(data);
+    };
+    data = {
+      tx: params.tx
+    };
+    console.log(JSON.stringify(data));
+    ajax = {
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      dataType: 'json',
+      processData: false,
+      type: 'POST',
+      success: success,
+      url: url
+    };
+    return $.ajax(ajax);
+  };
+
+  return HTTP;
+
+})();
 
 BitcoreExt = (function() {
   function BitcoreExt(address1, pvt_key_string) {
@@ -46,7 +91,6 @@ BitcoreExt = (function() {
         break;
       }
     }
-    console.log("utxos_out:", utxos_out.size);
     if (!is_empty(utxos)) {
       fee = TX_FEE;
       address = this.address;
@@ -55,12 +99,12 @@ BitcoreExt = (function() {
       console.log("utxos_out: ", utxos_out);
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       tx_hash = transaction.serialize();
-      console.log(tx_hash);
-      console.log("TODO: push");
+      return BlockCypher.pushtx(tx_hash, function() {
+        return callback(tx_hash);
+      });
     } else {
-      console.log("ERROR: Not enough UTXOs");
+      return console.log("ERROR: Not enough UTXOs");
     }
-    return console.log("END");
   };
 
   return BitcoreExt;
@@ -71,7 +115,7 @@ if (typeof module !== "undefined" && module !== null) {
   module.exports = BitcoreExt;
 }
 
-var BitcoreExt, KeyChain, Pen, b, bc, env, fs;
+var BitcoreExt, KeyChain, b, bc, env, fs;
 
 env = typeof window !== "undefined" ? "browser" : "node";
 
@@ -167,6 +211,8 @@ KeyChain = (function() {
 
 })();
 
+var Pen;
+
 Pen = (function() {
   function Pen() {
     this.kc = new KeyChain;
@@ -192,7 +238,6 @@ Pen = (function() {
           unspent = unspent.unspent_outputs;
           be = new BitcoreExt(_this.kc.address_s, _this.kc.privateKey.toString());
           return be.sign_and_broadcast(message, unspent, function(tx) {
-            console.log("TX DATA " + tx);
             return callback(tx);
           });
         }

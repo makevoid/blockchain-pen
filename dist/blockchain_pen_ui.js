@@ -43,7 +43,7 @@ $(function() {
     return function(amount) {
       var messages;
       console.log("balance", amount);
-      messages = Math.ceil(amount / 1000);
+      messages = Math.ceil(amount / 10000);
       return mex_n.html(messages);
     };
   })(this));
@@ -55,6 +55,9 @@ $(function() {
     return pen.write("test", function(tx) {
       console.log("finished! - tx:", tx);
       return out.html("tx written: " + tx);
+    }, function(fail_mex) {
+      console.error("Fail: " + fail_mex);
+      return out.html("Error: '" + fail_mex + "'. Please retry in 1 block time (after about 7 minutes)");
     });
   });
   return adqr.on("click", function() {

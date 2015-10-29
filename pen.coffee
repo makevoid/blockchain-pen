@@ -9,12 +9,11 @@ class Pen
     @kc.balance (amount) ->
       callback amount
 
-  write: (message, callback) ->
+  write: (message, callback, errback) ->
     @kc.unspent (unspent) =>
       if unspent.error
         console.log unspent.error
       else
         unspent = unspent.unspent_outputs
         be = new BitcoreExt @kc.address_s, @kc.privateKey.toString()
-        be.sign_and_broadcast message, unspent, (tx) ->
-          callback tx
+        be.sign_and_broadcast message, unspent, callback, errback

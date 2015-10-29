@@ -7,13 +7,13 @@ bitcore = require('bitcore');
 BlockCypher = (function() {
   function BlockCypher() {}
 
-  BlockCypher.pushtx = function(tx_hash, callback) {
+  BlockCypher.pushtx = function(tx_hash, callback, errback) {
     var post_params, pushtx_url;
     pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push";
     post_params = {
       tx: tx_hash
     };
-    return HTTP.post(pushtx_url, post_params, callback);
+    return HTTP.post(pushtx_url, post_params, callback, errback);
   };
 
   return BlockCypher;
@@ -23,16 +23,18 @@ BlockCypher = (function() {
 HTTP = (function() {
   function HTTP() {}
 
-  HTTP.post = function(url, params, callback) {
-    var ajax, data, success;
+  HTTP.post = function(url, params, callback, errback) {
+    var ajax, data, error, success;
     success = function(data) {
-      console.log("POST", url);
       return callback(data);
+    };
+    error = function(fail_message) {
+      fail_message = JSON.parse(fail_message.response);
+      return errback(fail_message.error);
     };
     data = {
       tx: params.tx
     };
-    console.log(JSON.stringify(data));
     ajax = {
       contentType: 'application/json',
       data: JSON.stringify(data),
@@ -40,6 +42,7 @@ HTTP = (function() {
       processData: false,
       type: 'POST',
       success: success,
+      error: error,
       url: url
     };
     return $.ajax(ajax);
@@ -55,9 +58,17 @@ BitcoreExt = (function() {
     this.pvt_key_string = pvt_key_string;
   }
 
-  BitcoreExt.prototype.sign_and_broadcast = function(message, utxos, callback) {
-    var address, amount, amount_btc, amount_satoshis, does_include, fee, i, is_empty, len, pvt_key, store, total_amount_sathoshis, transaction, tx_amount, tx_hash, tx_id, utxo, utxos_out;
-    store = true;
+  BitcoreExt.prototype.store_utxos = function(tx_ids) {
+    var store, utxos;
+    store = localStorage;
+    utxos = store.utxos ? JSON.parse(store.utxos) : [];
+    utxos = utxos.concat(tx_ids);
+    return store.utxos = JSON.stringify(utxos);
+  };
+
+  BitcoreExt.prototype.sign_and_broadcast = function(message, utxos, callback, errback) {
+    var address, amount, amount_btc, amount_satoshis, does_include, fee, i, is_empty, len, pvt_key, store, total_amount_sathoshis, transaction, tx_amount, tx_hash, tx_id, tx_ids, utxo, utxos_out;
+    store = localStorage;
     does_include = function(array, element) {
       return array.indexOf(element) !== -1;
     };
@@ -69,6 +80,7 @@ BitcoreExt = (function() {
     console.log("utxo_count", utxos.length);
     utxos_out = [];
     total_amount_sathoshis = 0;
+    tx_ids = [];
     for (i = 0, len = utxos.length; i < len; i++) {
       utxo = utxos[i];
       amount_satoshis = utxo.value;
@@ -76,6 +88,7 @@ BitcoreExt = (function() {
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC;
       console.log(amount_btc);
       tx_id = utxo.tx_hash_big_endian;
+      tx_ids.push(tx_id);
       if (store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)) {
         console.log("skipping transaction: " + tx_id);
         continue;
@@ -99,9 +112,12 @@ BitcoreExt = (function() {
       console.log("utxos_out: ", utxos_out);
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       tx_hash = transaction.serialize();
-      return BlockCypher.pushtx(tx_hash, function() {
-        return callback(tx_hash);
-      });
+      return BlockCypher.pushtx(tx_hash, (function(_this) {
+        return function() {
+          _this.store_utxos(tx_ids);
+          return callback(tx_hash);
+        };
+      })(this), errback);
     } else {
       return console.log("ERROR: Not enough UTXOs");
     }
@@ -228,7 +244,7 @@ Pen = (function() {
     });
   };
 
-  Pen.prototype.write = function(message, callback) {
+  Pen.prototype.write = function(message, callback, errback) {
     return this.kc.unspent((function(_this) {
       return function(unspent) {
         var be;
@@ -237,9 +253,7 @@ Pen = (function() {
         } else {
           unspent = unspent.unspent_outputs;
           be = new BitcoreExt(_this.kc.address_s, _this.kc.privateKey.toString());
-          return be.sign_and_broadcast(message, unspent, function(tx) {
-            return callback(tx);
-          });
+          return be.sign_and_broadcast(message, unspent, callback, errback);
         }
       };
     })(this));
@@ -294,7 +308,7 @@ $(function() {
     return function(amount) {
       var messages;
       console.log("balance", amount);
-      messages = Math.ceil(amount / 1000);
+      messages = Math.ceil(amount / 10000);
       return mex_n.html(messages);
     };
   })(this));
@@ -306,6 +320,9 @@ $(function() {
     return pen.write("test", function(tx) {
       console.log("finished! - tx:", tx);
       return out.html("tx written: " + tx);
+    }, function(fail_mex) {
+      console.error("Fail: " + fail_mex);
+      return out.html("Error: '" + fail_mex + "'. Please retry in 1 block time (after about 7 minutes)");
     });
   });
   return adqr.on("click", function() {

@@ -3,26 +3,27 @@ TX_FEE = 10000
 bitcore = require 'bitcore'
 
 class BlockCypher
-  @pushtx: (tx_hash, callback) ->
+  @pushtx: (tx_hash, callback, errback) ->
     pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push"
 
     post_params =
       tx: tx_hash
 
-    HTTP.post pushtx_url, post_params, callback
+    HTTP.post pushtx_url, post_params, callback, errback
 
 
 class HTTP
-  @post: (url, params, callback) ->
+  @post: (url, params, callback, errback) ->
 
     success = (data) ->
-      console.log "POST", url
       callback data
+
+    error = (fail_message) ->
+      fail_message = JSON.parse fail_message.response
+      errback fail_message.error
 
     data =
       tx: params.tx
-
-    console.log JSON.stringify(data)
 
     ajax =
       contentType: 'application/json',
@@ -31,6 +32,7 @@ class HTTP
       processData: false,
       type: 'POST',
       success: success,
+      error: error,
       url: url
 
     $.ajax ajax
@@ -39,10 +41,14 @@ class HTTP
 class BitcoreExt
   constructor: (@address, @pvt_key_string) ->
 
-  sign_and_broadcast: (message, utxos, callback) ->
+  store_utxos: (tx_ids) ->
+    store = localStorage
+    utxos = if store.utxos then JSON.parse(store.utxos) else []
+    utxos = utxos.concat tx_ids
+    store.utxos = JSON.stringify utxos
 
-    # localstorage
-    store = true
+  sign_and_broadcast: (message, utxos, callback, errback) ->
+    store = localStorage
 
     # tools
     does_include = (array, element) ->
@@ -57,6 +63,7 @@ class BitcoreExt
     console.log "utxo_count", utxos.length
     utxos_out = []
     total_amount_sathoshis = 0
+    tx_ids = []
 
     for utxo in utxos
       amount_satoshis = utxo.value
@@ -64,6 +71,7 @@ class BitcoreExt
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC
       console.log amount_btc
       tx_id = utxo.tx_hash_big_endian
+      tx_ids.push tx_id
 
       if store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)
         console.log "skipping transaction: #{tx_id}"
@@ -95,8 +103,10 @@ class BitcoreExt
 
       tx_hash = transaction.serialize()
 
-      BlockCypher.pushtx tx_hash, ->
+      BlockCypher.pushtx tx_hash, =>
+        @store_utxos tx_ids
         callback tx_hash
+      , errback
 
     else
       console.log "ERROR: Not enough UTXOs"

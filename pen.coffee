@@ -1,3 +1,5 @@
+KeyChain = require './keychain' if module?
+
 class Pen
   constructor: ->
     @kc = new KeyChain
@@ -17,3 +19,5 @@ class Pen
         unspent = unspent.unspent_outputs
         be = new BitcoreExt @kc.address_s, @kc.privateKey.toString()
         be.sign_and_broadcast message, unspent, callback, errback
+
+module.exports = Pen if module?

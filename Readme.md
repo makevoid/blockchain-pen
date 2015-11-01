@@ -11,6 +11,11 @@ run it:
 open <http://localhost:3000>
 
 
+
+---
+
+
+
 ---
 
 if you want to run it with nodejs
@@ -22,4 +27,4 @@ Get Coffee:
 
 run:
 
-    coffee blockchain_pen.coffee
+    coffee pen_cli.coffee

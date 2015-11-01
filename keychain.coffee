@@ -64,3 +64,6 @@ class KeyChain
 
   address_s: ->
     @address_s
+
+
+module.exports = KeyChain if module?

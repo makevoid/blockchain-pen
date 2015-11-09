@@ -1,4 +1,8 @@
-var Pen;
+var KeyChain, Pen;
+
+if (typeof module !== "undefined" && module !== null) {
+  KeyChain = require('./keychain');
+}
 
 Pen = (function() {
   function Pen() {
@@ -33,3 +37,7 @@ Pen = (function() {
   return Pen;
 
 })();
+
+if (typeof module !== "undefined" && module !== null) {
+  module.exports = Pen;
+}

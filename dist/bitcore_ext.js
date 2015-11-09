@@ -113,9 +113,10 @@ BitcoreExt = (function() {
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       tx_hash = transaction.serialize();
       return BlockCypher.pushtx(tx_hash, (function(_this) {
-        return function() {
+        return function(tx_response) {
           _this.store_utxos(tx_ids);
-          return callback(tx_hash);
+          tx_id = tx_response.tx.hash;
+          return callback(tx_id);
         };
       })(this), errback);
     } else {

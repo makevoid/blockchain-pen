@@ -113,9 +113,10 @@ BitcoreExt = (function() {
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       tx_hash = transaction.serialize();
       return BlockCypher.pushtx(tx_hash, (function(_this) {
-        return function() {
+        return function(tx_response) {
           _this.store_utxos(tx_ids);
-          return callback(tx_hash);
+          tx_id = tx_response.tx.hash;
+          return callback(tx_id);
         };
       })(this), errback);
     } else {
@@ -227,7 +228,11 @@ KeyChain = (function() {
 
 })();
 
-var Pen;
+var KeyChain, Pen;
+
+if (typeof module !== "undefined" && module !== null) {
+  KeyChain = require('./keychain');
+}
 
 Pen = (function() {
   function Pen() {
@@ -263,6 +268,10 @@ Pen = (function() {
 
 })();
 
+if (typeof module !== "undefined" && module !== null) {
+  module.exports = Pen;
+}
+
 var BitcoreExt, env;
 
 env = typeof window !== "undefined" ? "browser" : "node";
@@ -272,7 +281,7 @@ if (env === "node") {
 }
 
 $(function() {
-  var addr, adqr, btn, chars, message, mex, mex_n, out, pen, qr_el, set_address, topup, update_chars_count, write;
+  var addr, adqr, btn, chars, ew_pf, ext_b, extra, message, mex, mex_n, out, pen, qr_el, rev_p, set_address, topup, update_chars_count, write;
   mex = $("input[name=message]");
   chars = $(".chars_count");
   btn = $("button.main");
@@ -282,6 +291,10 @@ $(function() {
   mex_n = $(".messages_num");
   topup = $(".topup_msg");
   out = $(".outcome");
+  ext_b = $(".extra_btn");
+  extra = $(".extra_content");
+  rev_p = $(".reveal_pvtkey");
+  ew_pf = $(".add_ew_prefix");
   message = function() {
     return mex.val();
   };
@@ -317,15 +330,30 @@ $(function() {
   });
   btn.on("click", function() {
     out.show();
-    return pen.write("test", function(tx) {
+    return pen.write(mex.val(), function(tx) {
       console.log("finished! - tx:", tx);
-      return out.html("tx written: " + tx);
+      return out.html("tx written: <a href='https://live.blockcypher.com/btc/tx/" + tx + "/'>" + tx + "</a>");
     }, function(fail_mex) {
       console.error("Fail: " + fail_mex);
       return out.html("Error: '" + fail_mex + "'. Please retry in 1 block time (after about 7 minutes)");
     });
   });
-  return adqr.on("click", function() {
+  adqr.on("click", function() {
     return qr_el.toggleClass("hidden");
   });
+  ext_b.on("click", (function(_this) {
+    return function() {
+      extra.toggleClass("hidden");
+      return ext_b.addClass("hidden");
+    };
+  })(this));
+  return ew_pf.on("click", (function(_this) {
+    return function() {
+      var msg;
+      msg = mex.val();
+      if (msg.slice(0, 2) !== "EW") {
+        return mex.val("EW " + msg);
+      }
+    };
+  })(this));
 });

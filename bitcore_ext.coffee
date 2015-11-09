@@ -103,9 +103,10 @@ class BitcoreExt
 
       tx_hash = transaction.serialize()
 
-      BlockCypher.pushtx tx_hash, =>
+      BlockCypher.pushtx tx_hash, (tx_response) =>
         @store_utxos tx_ids
-        callback tx_hash
+        tx_id = tx_response.tx.hash
+        callback tx_id
       , errback
 
     else

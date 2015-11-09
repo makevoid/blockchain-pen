@@ -516,3 +516,12 @@ input[type=submit], button {
 .hidden {
   display: none;
 }
+
+.extra_section {
+  float: right;
+  margin-top: 300px;
+}
+
+.extra_content p {
+  margin: 0
+}

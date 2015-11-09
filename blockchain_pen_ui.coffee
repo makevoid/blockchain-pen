@@ -16,6 +16,10 @@ $ ->
   mex_n = $ ".messages_num"
   topup = $ ".topup_msg"
   out   = $ ".outcome"
+  ext_b = $ ".extra_btn"
+  extra = $ ".extra_content"
+  rev_p = $ ".reveal_pvtkey"
+  ew_pf = $ ".add_ew_prefix"
 
   message = ->
     mex.val()
@@ -54,12 +58,20 @@ $ ->
 
   btn.on "click", ->
     out.show()
-    pen.write "test", (tx) ->
+    pen.write mex.val(), (tx) ->
       console.log "finished! - tx:", tx
-      out.html "tx written: #{tx}"
+      out.html "tx written: <a href='https://live.blockcypher.com/btc/tx/#{tx}/'>#{tx}</a>"
     , (fail_mex) ->
       console.error "Fail: #{fail_mex}"
       out.html "Error: '#{fail_mex}'. Please retry in 1 block time (after about 7 minutes)"
 
   adqr.on "click", ->
     qr_el.toggleClass "hidden"
+
+  ext_b.on "click", =>
+    extra.toggleClass   "hidden"
+    ext_b.addClass "hidden"
+
+  ew_pf.on "click", =>
+    msg = mex.val()
+    mex.val "EW #{msg}" unless msg[0..1] == "EW"

@@ -73,7 +73,7 @@ $(function() {
       return ext_b.addClass("hidden");
     };
   })(this));
-  return ew_pf.on("click", (function(_this) {
+  ew_pf.on("click", (function(_this) {
     return function() {
       var msg;
       msg = mex.val();
@@ -82,4 +82,11 @@ $(function() {
       }
     };
   })(this));
+  return rev_p.on("click", function() {
+    alert("Check the developer console of your browser\nYour private key has been written there.");
+    console.log("This is your private key in the WIF format:");
+    console.log("-----------------------------------------------------");
+    console.log(pen.kc.privateKey.toWIF());
+    return console.log("-----------------------------------------------------");
+  });
 });

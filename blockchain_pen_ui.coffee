@@ -75,3 +75,10 @@ $ ->
   ew_pf.on "click", =>
     msg = mex.val()
     mex.val "EW #{msg}" unless msg[0..1] == "EW"
+
+  rev_p.on "click", ->
+    alert "Check the developer console of your browser\nYour private key has been written there."
+    console.log "This is your private key in the WIF format:"
+    console.log "-----------------------------------------------------"
+    console.log pen.kc.privateKey.toWIF()
+    console.log "-----------------------------------------------------"

@@ -28,3 +28,7 @@ Get Coffee:
 run:
 
     coffee pen_cli.coffee
+
+### More infos
+
+watch the #bcpen and #blockchain-pen tags on twitter

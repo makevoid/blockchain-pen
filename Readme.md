@@ -3,7 +3,7 @@
 
 use it:
 
-### <blockchain-pen.mkvd.net>
+### <http://blockchain-pen.mkvd.net>
 
 ### Infos
 

@@ -19,7 +19,6 @@ KeyChain = (function() {
   KeyChain.prototype.key_path = "./.key";
 
   function KeyChain() {
-    console.log("init keychain");
     this.privateKey = new b.PrivateKey(this.load_saved_key());
     this.address = this.privateKey.toAddress();
     this.address_s = this.address.toString();
@@ -93,3 +92,7 @@ KeyChain = (function() {
   return KeyChain;
 
 })();
+
+if (typeof module !== "undefined" && module !== null) {
+  module.exports = KeyChain;
+}

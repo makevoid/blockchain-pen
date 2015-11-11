@@ -57,19 +57,19 @@ class BitcoreExt
     is_empty = (val) ->
       !val || val == ""
 
-    console.log "sign and broadcast"
+    # console.log "sign and broadcast"
     tx_amount = 1000
 
-    console.log "utxo_count", utxos.length
+    # console.log "utxo_count", utxos.length
     utxos_out = []
     total_amount_sathoshis = 0
     tx_ids = []
 
     for utxo in utxos
+      # console.log utxos
       amount_satoshis = utxo.value
       total_amount_sathoshis += amount_satoshis
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC
-      console.log amount_btc
       tx_id = utxo.tx_hash_big_endian
       tx_ids.push tx_id
 
@@ -91,7 +91,7 @@ class BitcoreExt
       address = @address
       amount  = tx_amount
       pvt_key = @pvt_key_string
-      console.log "utxos_out: ", utxos_out
+      # console.log "utxos_out: ", utxos_out
 
       transaction = new bitcore.Transaction()
         .from(utxos_out)
@@ -110,7 +110,7 @@ class BitcoreExt
       , errback
 
     else
-      console.log "ERROR: Not enough UTXOs"
+      console.error "ERROR: Not enough UTXOs"
 
 
 module.exports = BitcoreExt if module?

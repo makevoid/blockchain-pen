@@ -17,7 +17,6 @@ class KeyChain
   key_path: "./.key"
 
   constructor: ->
-    console.log "init keychain"
     @privateKey = new b.PrivateKey @load_saved_key()
     @address    = @privateKey.toAddress()
     @address_s  = @address.toString()

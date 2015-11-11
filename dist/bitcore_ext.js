@@ -75,9 +75,7 @@ BitcoreExt = (function() {
     is_empty = function(val) {
       return !val || val === "";
     };
-    console.log("sign and broadcast");
     tx_amount = 1000;
-    console.log("utxo_count", utxos.length);
     utxos_out = [];
     total_amount_sathoshis = 0;
     tx_ids = [];
@@ -86,7 +84,6 @@ BitcoreExt = (function() {
       amount_satoshis = utxo.value;
       total_amount_sathoshis += amount_satoshis;
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC;
-      console.log(amount_btc);
       tx_id = utxo.tx_hash_big_endian;
       tx_ids.push(tx_id);
       if (store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)) {
@@ -109,7 +106,6 @@ BitcoreExt = (function() {
       address = this.address;
       amount = tx_amount;
       pvt_key = this.pvt_key_string;
-      console.log("utxos_out: ", utxos_out);
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       tx_hash = transaction.serialize();
       return BlockCypher.pushtx(tx_hash, (function(_this) {
@@ -120,7 +116,7 @@ BitcoreExt = (function() {
         };
       })(this), errback);
     } else {
-      return console.log("ERROR: Not enough UTXOs");
+      return console.error("ERROR: Not enough UTXOs");
     }
   };
 

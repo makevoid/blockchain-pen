@@ -27,9 +27,6 @@ $ ->
   update_chars_count = ->
     chars.html message().length
 
-  write = (message) ->
-    console.log "write #{message}"
-
   set_address = (address) ->
     addr.html address
     new QRCode qr_el.get(0),

@@ -7,7 +7,7 @@ if (env === "node") {
 }
 
 $(function() {
-  var addr, adqr, btn, chars, ew_pf, ext_b, extra, message, mex, mex_n, out, pen, qr_el, rev_p, set_address, topup, update_chars_count, write;
+  var addr, adqr, btn, chars, ew_pf, ext_b, extra, message, mex, mex_n, out, pen, qr_el, rev_p, set_address, topup, update_chars_count;
   mex = $("input[name=message]");
   chars = $(".chars_count");
   btn = $("button.main");
@@ -26,9 +26,6 @@ $(function() {
   };
   update_chars_count = function() {
     return chars.html(message().length);
-  };
-  write = function(message) {
-    return console.log("write " + message);
   };
   set_address = function(address) {
     addr.html(address);

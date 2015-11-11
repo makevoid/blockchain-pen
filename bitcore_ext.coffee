@@ -55,7 +55,7 @@ class BitcoreExt
       array.indexOf(element) != -1
 
     is_empty = (val) ->
-      !val || val == ""
+      !val || val.length == 0
 
     # console.log "sign and broadcast"
     tx_amount = 1000
@@ -86,7 +86,8 @@ class BitcoreExt
 
       break if amount_satoshis > TX_FEE+tx_amount
 
-    unless is_empty(utxos)
+    console.log is_empty utxos_out
+    unless is_empty utxos_out
       fee = TX_FEE # from 5000 it should be a good fee
       address = @address
       amount  = tx_amount
@@ -111,6 +112,7 @@ class BitcoreExt
 
     else
       console.error "ERROR: Not enough UTXOs"
+      errback "It seems you don't have any available transaction output to spend, you have to wait for the next block to be confirmed or you can deposit at least 0.11 mbtc to be able to write another message."
 
 
 module.exports = BitcoreExt if module?

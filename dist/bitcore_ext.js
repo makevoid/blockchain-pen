@@ -73,7 +73,7 @@ BitcoreExt = (function() {
       return array.indexOf(element) !== -1;
     };
     is_empty = function(val) {
-      return !val || val === "";
+      return !val || val.length === 0;
     };
     tx_amount = 1000;
     utxos_out = [];
@@ -101,7 +101,8 @@ BitcoreExt = (function() {
         break;
       }
     }
-    if (!is_empty(utxos)) {
+    console.log(is_empty(utxos_out));
+    if (!is_empty(utxos_out)) {
       fee = TX_FEE;
       address = this.address;
       amount = tx_amount;
@@ -116,7 +117,8 @@ BitcoreExt = (function() {
         };
       })(this), errback);
     } else {
-      return console.error("ERROR: Not enough UTXOs");
+      console.error("ERROR: Not enough UTXOs");
+      return errback("It seems you don't have any available transaction output to spend, you have to wait for the next block to be confirmed or you can deposit at least 0.11 mbtc to be able to write another message.");
     }
   };
 

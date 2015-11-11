@@ -18,6 +18,12 @@ how it works under the hood
 
 that's basically it!
 
+<a href="http://blockchain-pen.mkvd.net">
+![](http://mkvd.s3.amazonaws.com/pics/blockchainpen_mindblown.png)
+</a>
+
+enjoy!
+
 ### For Developers:
 
 download the source:

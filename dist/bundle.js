@@ -108,7 +108,12 @@ BitcoreExt = (function() {
       amount = tx_amount;
       pvt_key = this.pvt_key_string;
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
-      tx_hash = transaction.serialize();
+      try {
+        tx_hash = transaction.serialize();
+      } catch (_error) {
+        console.log("retrying serialization with unchecked = true");
+        tx_hash = transaction.serialize(true);
+      }
       return BlockCypher.pushtx(tx_hash, (function(_this) {
         return function(tx_response) {
           _this.store_utxos(tx_ids);

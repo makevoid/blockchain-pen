@@ -64,3 +64,11 @@ run:
 ### More infos
 
 watch the #bcpen and #blockchain-pen tags on twitter
+
+
+
+### Current status
+
+EW ♪ ♪ ♪♪♪   ♪♪♪♪   not well defined    ♪♪♪♪♪
+
+how I use this thing: http://eternitywall.it/search?q=makevoid

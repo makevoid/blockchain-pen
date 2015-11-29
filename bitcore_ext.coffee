@@ -102,7 +102,11 @@ class BitcoreExt
         .addData(message)
         .sign(pvt_key)
 
-      tx_hash = transaction.serialize()
+      try
+        tx_hash = transaction.serialize()
+      catch
+        console.log "retrying serialization with unchecked = true"
+        tx_hash = transaction.serialize true
 
       BlockCypher.pushtx tx_hash, (tx_response) =>
         @store_utxos tx_ids

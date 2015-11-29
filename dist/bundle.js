@@ -1,56 +1,8 @@
-var BitcoreExt, BlockCypher, HTTP, TX_FEE, bitcore;
+var BitcoreExt, TX_FEE, bitcore;
 
 TX_FEE = 10000;
 
 bitcore = require('bitcore');
-
-BlockCypher = (function() {
-  function BlockCypher() {}
-
-  BlockCypher.pushtx = function(tx_hash, callback, errback) {
-    var post_params, pushtx_url;
-    pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push";
-    post_params = {
-      tx: tx_hash
-    };
-    return HTTP.post(pushtx_url, post_params, callback, errback);
-  };
-
-  return BlockCypher;
-
-})();
-
-HTTP = (function() {
-  function HTTP() {}
-
-  HTTP.post = function(url, params, callback, errback) {
-    var ajax, data, error, success;
-    success = function(data) {
-      return callback(data);
-    };
-    error = function(fail_message) {
-      fail_message = JSON.parse(fail_message.response);
-      return errback(fail_message.error);
-    };
-    data = {
-      tx: params.tx
-    };
-    ajax = {
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      dataType: 'json',
-      processData: false,
-      type: 'POST',
-      success: success,
-      error: error,
-      url: url
-    };
-    return $.ajax(ajax);
-  };
-
-  return HTTP;
-
-})();
 
 BitcoreExt = (function() {
   function BitcoreExt(address1, pvt_key_string) {

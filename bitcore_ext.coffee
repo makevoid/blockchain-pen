@@ -1,41 +1,8 @@
 TX_FEE = 10000
 
-bitcore = require 'bitcore'
-
-class BlockCypher
-  @pushtx: (tx_hash, callback, errback) ->
-    pushtx_url = "https://api.blockcypher.com/v1/btc/main/txs/push"
-
-    post_params =
-      tx: tx_hash
-
-    HTTP.post pushtx_url, post_params, callback, errback
-
-
-class HTTP
-  @post: (url, params, callback, errback) ->
-
-    success = (data) ->
-      callback data
-
-    error = (fail_message) ->
-      fail_message = JSON.parse fail_message.response
-      errback fail_message.error
-
-    data =
-      tx: params.tx
-
-    ajax =
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      dataType: 'json',
-      processData: false,
-      type: 'POST',
-      success: success,
-      error: error,
-      url: url
-
-    $.ajax ajax
+bitcore     = require 'bitcore'
+# BlockCypher = require 'blockcypher'
+# HTTP        = require 'http'
 
 
 class BitcoreExt

@@ -8,7 +8,9 @@ use it:
 ```
 note: You have to load some millibits in it 
 the message embedded in a bitcoin transaction costs 0.1 mBTC (the price is per message)  (that's 0.0001 BTC) 
-so with 1 mBTC (0.001 BTC) you can  write 10 messages. Load them from your wallet / keychain software to the account linked in blue via copy-pasting it or scanning the QR code
+so with 1 mBTC (0.001 BTC) you can  write 10 messages. 
+Load them from your wallet / keychain software to the bitcoin account (address) linked via 
+copy-paste or by scanning the QR code
 enjoy!
 ```
 

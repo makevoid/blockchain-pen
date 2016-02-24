@@ -62,20 +62,22 @@ class BitcoreExt
 
     # console.log "utxo_count", utxos.length
     utxos_out = []
-    total_amount_sathoshis = 0
+    # total_amount_sathoshis = 0
     tx_ids = []
 
     for utxo in utxos
       # console.log utxos
       amount_satoshis = utxo.value
-      total_amount_sathoshis += amount_satoshis
+      # total_amount_sathoshis += amount_satoshis
       amount_btc = new bitcore.Unit.fromSatoshis(amount_satoshis).BTC
       tx_id = utxo.tx_hash_big_endian
       tx_ids.push tx_id
 
-      if store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)
-        console.log "skipping transaction: #{tx_id}"
-        continue
+      # USE ALL INPUTS VERSION (TODO: FIXME:)
+      #
+      # if store && store.utxos && does_include(JSON.parse(store.utxos), tx_id)
+      #   console.log "skipping transaction: #{tx_id}"
+      #   continue
 
       utxos_out.push
         address:      @address
@@ -84,7 +86,7 @@ class BitcoreExt
         amount:       amount_btc
         vout:         utxo.tx_output_n
 
-      break if amount_satoshis > TX_FEE+tx_amount
+      # break if amount_satoshis > TX_FEE+tx_amount
 
     console.log is_empty utxos_out
     unless is_empty utxos_out

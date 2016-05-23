@@ -43,6 +43,15 @@ download the source:
 
     git clone https://github.com/makevoid/blockchain_pen_coffee
 
+install bower if you haven't got it already:
+
+    npm i -g bower 
+
+run `bower`:
+
+    bower install
+
+
 run it:
 
     python -m SimpleHTTPServer 3000

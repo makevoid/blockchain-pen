@@ -88,6 +88,8 @@ class BitcoreExt
 
       # break if amount_satoshis > TX_FEE+tx_amount
 
+    console.log "UTXOS:", utxos_out
+    console.log "...proceeding:"
     console.log is_empty utxos_out
     unless is_empty utxos_out
       fee = TX_FEE # from 5000 it should be a good fee

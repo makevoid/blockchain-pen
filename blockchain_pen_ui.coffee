@@ -36,6 +36,8 @@ $ ->
       colorDark : "#000000",
       colorLight : "#ffffff"
       correctLevel : QRCode.CorrectLevel.H
+    # TODO: pushstate
+    # !!!!!!!!!!!!!
 
 
   # pen (main)
@@ -43,7 +45,7 @@ $ ->
   pen = new Pen
   set_address pen.address()
   pen.balance (amount) =>
-    console.log "balance", amount
+    console.log "balance:", amount, "(satoshis)"
     messages = Math.ceil amount / 10000
     mex_n.html messages
 
@@ -75,7 +77,21 @@ $ ->
 
   rev_p.on "click", ->
     alert "Check the developer console of your browser\nYour private key has been written there."
-    console.log "This is your private key in the WIF format:"
-    console.log "-----------------------------------------------------"
-    console.log pen.kc.privateKey.toWIF()
-    console.log "-----------------------------------------------------"
+
+    console.log "---------------------------------------------------------"
+    console.log " This is your private key in the .wif (WIF) format: "
+    console.log "---------------------------------------------------------"
+    console.log
+    console.log "bitcoin_private_key.wif"
+    console.log "  "+pen.kc.privateKey.toWIF()
+    console.log
+    console.log "--------------------------------------------------------\n"
+
+
+    console.log "---------------------------------------------------------"
+    console.log " This is your private key as a 12 words mnemonic phrase: "
+    console.log "---------------------------------------------------------"
+    console.log      new Mnemonic(pen.kc.privateKey.toWIF())
+    console.log "---------------------------------------------------------\n"
+
+    #

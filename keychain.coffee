@@ -31,7 +31,14 @@ class KeyChain
     pen.write @privateKey, "test_message"
 
   unspent: (callback) ->
-    bc.unspent @address, callback
+    # bpen posts to wite:
+    # EW #decentralized #ngrok #appidea #mkv # unrelated # TODO delete this comment
+    # EW
+    bc.unspent(@address, callback)
+      .then (data) -> 
+        console.log data.notice if data.notice
+        # logif data, "notice" # add styntactic sugar via libraries to write the line above
+        Promise.resolve data
 
   load_saved_key: ->
     if env == "node" then @load_saved_key_node() else @load_saved_key_browser()

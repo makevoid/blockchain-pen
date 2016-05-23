@@ -67,7 +67,7 @@ BitcoreExt = (function() {
   };
 
   BitcoreExt.prototype.sign_and_broadcast = function(message, utxos, callback, errback) {
-    var address, amount, amount_btc, amount_satoshis, does_include, fee, i, is_empty, len, pvt_key, store, transaction, tx_amount, tx_hash, tx_id, tx_ids, utxo, utxos_out;
+    var address, amount, amount_btc, amount_satoshis, does_include, error1, fee, i, is_empty, len, pvt_key, store, transaction, tx_amount, tx_hash, tx_id, tx_ids, utxo, utxos_out;
     store = localStorage;
     does_include = function(array, element) {
       return array.indexOf(element) !== -1;
@@ -92,6 +92,8 @@ BitcoreExt = (function() {
         vout: utxo.tx_output_n
       });
     }
+    console.log("UTXOS:", utxos_out);
+    console.log("...proceeding:");
     console.log(is_empty(utxos_out));
     if (!is_empty(utxos_out)) {
       fee = TX_FEE;
@@ -101,7 +103,7 @@ BitcoreExt = (function() {
       transaction = new bitcore.Transaction().from(utxos_out).to(address, amount).change(address).fee(fee).addData(message).sign(pvt_key);
       try {
         tx_hash = transaction.serialize();
-      } catch (_error) {
+      } catch (error1) {
         console.log("retrying serialization with unchecked = true");
         tx_hash = transaction.serialize(true);
       }
@@ -164,7 +166,12 @@ KeyChain = (function() {
   };
 
   KeyChain.prototype.unspent = function(callback) {
-    return bc.unspent(this.address, callback);
+    return bc.unspent(this.address, callback).then(function(data) {
+      if (data.notice) {
+        console.log(data.notice);
+      }
+      return Promise.resolve(data);
+    });
   };
 
   KeyChain.prototype.load_saved_key = function() {
@@ -314,7 +321,7 @@ $(function() {
   pen.balance((function(_this) {
     return function(amount) {
       var messages;
-      console.log("balance", amount);
+      console.log("balance:", amount, "(satoshis)");
       messages = Math.ceil(amount / 10000);
       return mex_n.html(messages);
     };
@@ -352,9 +359,18 @@ $(function() {
   })(this));
   return rev_p.on("click", function() {
     alert("Check the developer console of your browser\nYour private key has been written there.");
-    console.log("This is your private key in the WIF format:");
-    console.log("-----------------------------------------------------");
-    console.log(pen.kc.privateKey.toWIF());
-    return console.log("-----------------------------------------------------");
+    console.log("---------------------------------------------------------");
+    console.log(" This is your private key in the .wif (WIF) format: ");
+    console.log("---------------------------------------------------------");
+    console.log;
+    console.log("bitcoin_private_key.wif");
+    console.log("  " + pen.kc.privateKey.toWIF());
+    console.log;
+    console.log("--------------------------------------------------------\n");
+    console.log("---------------------------------------------------------");
+    console.log(" This is your private key as a 12 words mnemonic phrase: ");
+    console.log("---------------------------------------------------------");
+    console.log(new Mnemonic(pen.kc.privateKey.toWIF()));
+    return console.log("---------------------------------------------------------\n");
   });
 });

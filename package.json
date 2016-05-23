@@ -3,5 +3,8 @@
     "bitcore": "^0.13.5",
     "blockchain-api-basic": "git://github.com/makevoid/blockchain-info-api-basic",
     "superagent": "^1.4.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.1"
   }
 }

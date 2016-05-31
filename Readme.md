@@ -16,7 +16,9 @@ You can load the funds from your wallet / keychain software to the bitcoin accou
 
 Enjoy!
 
-[@makeovoid](http://twitter.com/makevoid)
+[@makevoid](http://twitter.com/makevoid)
+
+---
 
 ### More infos
 

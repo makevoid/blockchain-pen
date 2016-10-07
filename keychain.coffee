@@ -1,6 +1,8 @@
 
 env = if typeof window != "undefined" then "browser" else "node"
-console.log "running in env: #{env}"
+
+c = console
+c.log "running in env: #{env}"
 
 b  = require 'bitcore'
 
@@ -34,9 +36,11 @@ class KeyChain
     # bpen posts to wite:
     # EW #decentralized #ngrok #appidea #mkv # unrelated # TODO delete this comment
     # EW
+    c.log "UNSPENT!"
+    c.log bc
     bc.unspent(@address, callback)
-      .then (data) -> 
-        console.log data.notice if data.notice
+      .then (data) ->
+        c.log data.notice if data.notice
         # logif data, "notice" # add styntactic sugar via libraries to write the line above
         Promise.resolve data
 

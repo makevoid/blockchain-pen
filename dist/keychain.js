@@ -1,8 +1,10 @@
-var BitcoreExt, KeyChain, b, bc, env, fs;
+var BitcoreExt, KeyChain, b, bc, c, env, fs;
 
 env = typeof window !== "undefined" ? "browser" : "node";
 
-console.log("running in env: " + env);
+c = console;
+
+c.log("running in env: " + env);
 
 b = require('bitcore');
 
@@ -36,9 +38,11 @@ KeyChain = (function() {
   };
 
   KeyChain.prototype.unspent = function(callback) {
+    c.log("UNSPENT!");
+    c.log(bc);
     return bc.unspent(this.address, callback).then(function(data) {
       if (data.notice) {
-        console.log(data.notice);
+        c.log(data.notice);
       }
       return Promise.resolve(data);
     });

@@ -103,8 +103,43 @@ class BitcoreExt
         .to(address, amount)
         .change(address)
         .fee(fee)
-        .addData(message)
-        .sign(pvt_key)
+
+      # actual
+      # 
+      # transaction
+      #   .addData(message)
+
+      # proposed
+
+      transaction
+        .addData("{\"a\":")
+        .addData("\"b\"}")
+
+
+
+      # saves the hash: { a: "b" }.to_json
+      #
+
+      #
+
+      # transaction
+      #   .addData(message)
+      #   .addData(message)
+      #   .addData(message)
+
+      transaction.sign(pvt_key)
+
+      # usage:
+      #
+      # 4.20
+      #
+      # http://blockchainpen.com
+      #
+      #
+      # reset local storage
+      #
+      # backup private key
+
 
       try
         tx_hash = transaction.serialize()

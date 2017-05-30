@@ -1,4 +1,7 @@
-TX_FEE = 10000
+# TX_FEE = 10_000 # this was good until early 2017 when the minimum fee set as this was ok, 30_000 (30k sat. per transaction) was still ok to have good confirmation times - note that for an op return message you just need the minimum fee that can confirm your transaciton in x blocks
+# TX_FEE = 31_000 # almost enough 
+TX_FEE = 35_000    
+TX_FEE = 40_000   # probably too much, let's try with 40k sat per tx
 
 bitcore = require 'bitcore'
 

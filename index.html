@@ -1,395 +1,93 @@
-
-16:15:04 [rerun] Blockchain-pen launched
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <title>Blockchain Pen</title>
-    <meta content='Blockchain Pen - the easiest way to write immutable messages on the blockchain ' name='description'>
-    <meta content="Francesco 'makevoid' Canessa" name='author'>
-    <meta content='width=device-width, initial-scale=1' name='viewport'>
-    <meta content='http://blockchainpen.com/img/stylus.png' property='og:image'>
-    <!-- TODO: embed local font -->
-    <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
-    <link charset='utf-8' href='./css/vendor/normalize.css' media='screen' rel='stylesheet'>
-    <link charset='utf-8' href='./css/style.css' media='screen' rel='stylesheet'>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='row'>
-        <header>
-          <div class='row'>
-            <div class='one columns'>
-              <img src='/img/stylus.svg'>
-            </div>
-            <div class='five columns'>
-              <h1>Blockchain Pen</h1>
-            </div>
-          </div>
-        </header>
-        <div class='align-right address'>
-          <a href='javascript:void(0)'>1address</a>
-          <div class='row rel'>
-            <div class='qr hidden'></div>
-            <p>
-              You can send
-              <span class='messages_num'>0</span>
-              messages
-            </p>
-            <p class='topup_msg hidden'>You need to top-up!</p>
-          </div>
-        </div>
-        <div class='spacer50'></div>
-        <div class='bc_stylus'>
-          <div class='message_input'>
-            <div class='row align-right'>
-              <span class='chars_count'>
-                0
-              </span>
-              <span>
-                / 75 chars
-              </span>
-            </div>
-            <div class='spacer10'></div>
-            <div class='row'>
-              <div class='five columns'>
-                <textarea maxlength='1000' name='message' placeholder='paste hash or json here...' type='text'></textarea>
-              </div>
-              <div class='one columns'>
-                <button class='main'>
-                  Write
-                </button>
-              </div>
-              <div class='row'>
-                <div class='six columns hidden outcome'>
-                  loading...
-                </div>
-              </div>
-              <div class='extra_section'>
-                <a class='extra_btn' href='javascript:void(0)'>
-                  extra features
-                </a>
-                <div class='extra_content hidden'>
-                  <p>
-                    <a class='reveal_pvtkey' href='javascript:void(0)'>reveal private key</a>
-                  </p>
-                  <p>
-                    <a class='add_ew_prefix' href='javascript:void(0)'>add EternityWall prefix</a>
-                  </p>
-                  <p>
-                    <a href='http://github.com/makevoid/blockchain_pen_coffee'>view/edit the source code</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src='./vendor/zepto.js' type='text/javascript'></script>
-    <script src='./vendor/qrcode.js' type='text/javascript'></script>
-    <script src='./bower_components/bitcore/bitcore.min.js' type='text/javascript'></script>
-    <script src='./bower_components/blockchain-api-basic/bundle.js' type='text/javascript'></script>
-    <script src='./dist/bundle.js' type='text/javascript'></script>
-  </body>
+<head>
+<meta charset='utf-8'>
+<title>Blockchain Pen</title>
+<meta content='Blockchain Pen - the easiest way to write immutable messages on the blockchain ' name='description'>
+<meta content='Francesco &#39;makevoid&#39; Canessa' name='author'>
+<meta content='width=device-width, initial-scale=1' name='viewport'>
+<meta content='http://blockchainpen.com/img/stylus.png' property='og:image'>
+<!-- TODO: embed local font -->
+<!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
+<link charset='utf-8' href='./css/vendor/normalize.css' media='screen' rel='stylesheet'>
+<link charset='utf-8' href='./css/style.css' media='screen' rel='stylesheet'>
+</head>
+<body>
+<div class='container'>
+<div class='row'>
+<header>
+<div class='row'>
+<div class='one columns'>
+<img src='/img/stylus.svg'>
+</div>
+<div class='five columns'>
+<h1>Blockchain Pen</h1>
+</div>
+</div>
+</header>
+<div class='align-right address'>
+<a href='javascript:void(0)'>1address</a>
+<div class='row rel'>
+<div class='qr hidden'></div>
+<p>
+You can send
+<span class='messages_num'>0</span>
+messages
+</p>
+<p class='topup_msg hidden'>You need to top-up!</p>
+</div>
+</div>
+<div class='spacer50'></div>
+<div class='bc_stylus'>
+<div class='message_input'>
+<div class='row align-right'>
+<span class='chars_count'>
+0
+</span>
+<span>
+chars
+</span>
+</div>
+<div class='spacer10'></div>
+<div class='row'>
+<div class='five columns'>
+<textarea maxlength='1000' name='message' placeholder='paste hash or json here...' type='text'></textarea>
+</div>
+<div class='one columns'>
+<button class='main'>
+Write
+</button>
+</div>
+<div class='row'>
+<div class='six columns hidden outcome'>
+loading...
+</div>
+</div>
+<div class='extra_section'>
+<a class='extra_btn' href='javascript:void(0)'>
+extra features
+</a>
+<div class='extra_content hidden'>
+<p>
+<a class='reveal_pvtkey' href='javascript:void(0)'>reveal private key</a>
+</p>
+<p>
+<a class='add_ew_prefix' href='javascript:void(0)'>add EternityWall prefix</a>
+</p>
+<p>
+<a href='http://github.com/makevoid/blockchain_pen_coffee'>view/edit the source code</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src='./vendor/zepto.js' type='text/javascript'></script>
+<script src='./vendor/qrcode.js' type='text/javascript'></script>
+<script src='./bower_components/bitcore/bitcore.min.js' type='text/javascript'></script>
+<script src='./bower_components/blockchain-api-basic/bundle.js' type='text/javascript'></script>
+<script src='./dist/bundle.js' type='text/javascript'></script>
+</body>
 </html>
-
-16:15:06 [rerun] Blockchain-pen Launch Failed
-16:15:06 [rerun] Watching . for *.{haml}
-16:15:08 [rerun] Change detected: 1 modified: index.haml
-16:15:08 [rerun] Sending signal TERM to 24846
-
-16:15:08 [rerun] Blockchain-pen launched
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <title>Blockchain Pen</title>
-    <meta content='Blockchain Pen - the easiest way to write immutable messages on the blockchain ' name='description'>
-    <meta content="Francesco 'makevoid' Canessa" name='author'>
-    <meta content='width=device-width, initial-scale=1' name='viewport'>
-    <meta content='http://blockchainpen.com/img/stylus.png' property='og:image'>
-    <!-- TODO: embed local font -->
-    <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
-    <link charset='utf-8' href='./css/vendor/normalize.css' media='screen' rel='stylesheet'>
-    <link charset='utf-8' href='./css/style.css' media='screen' rel='stylesheet'>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='row'>
-        <header>
-          <div class='row'>
-            <div class='one columns'>
-              <img src='/img/stylus.svg'>
-            </div>
-            <div class='five columns'>
-              <h1>Blockchain Pen</h1>
-            </div>
-          </div>
-        </header>
-        <div class='align-right address'>
-          <a href='javascript:void(0)'>1address</a>
-          <div class='row rel'>
-            <div class='qr hidden'></div>
-            <p>
-              You can send
-              <span class='messages_num'>0</span>
-              messages
-            </p>
-            <p class='topup_msg hidden'>You need to top-up!</p>
-          </div>
-        </div>
-        <div class='spacer50'></div>
-        <div class='bc_stylus'>
-          <div class='message_input'>
-            <div class='row align-right'>
-              <span class='chars_count'>
-                0
-              </span>
-              <span>
-                / 75 chars
-              </span>
-            </div>
-            <div class='spacer10'></div>
-            <div class='row'>
-              <div class='five columns'>
-                <textarea maxlength='1000' name='message' placeholder='paste hash or json here...' type='text'></textarea>
-              </div>
-              <div class='one columns'>
-                <button class='main'>
-                  Write
-                </button>
-              </div>
-              <div class='row'>
-                <div class='six columns hidden outcome'>
-                  loading...
-                </div>
-              </div>
-              <div class='extra_section'>
-                <a class='extra_btn' href='javascript:void(0)'>
-                  extra features
-                </a>
-                <div class='extra_content hidden'>
-                  <p>
-                    <a class='reveal_pvtkey' href='javascript:void(0)'>reveal private key</a>
-                  </p>
-                  <p>
-                    <a class='add_ew_prefix' href='javascript:void(0)'>add EternityWall prefix</a>
-                  </p>
-                  <p>
-                    <a href='http://github.com/makevoid/blockchain_pen_coffee'>view/edit the source code</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src='./vendor/zepto.js' type='text/javascript'></script>
-    <script src='./vendor/qrcode.js' type='text/javascript'></script>
-    <script src='./bower_components/bitcore/bitcore.min.js' type='text/javascript'></script>
-    <script src='./bower_components/blockchain-api-basic/bundle.js' type='text/javascript'></script>
-    <script src='./dist/bundle.js' type='text/javascript'></script>
-  </body>
-</html>
-
-16:15:10 [rerun] Blockchain-pen Launch Failed
-16:15:15 [rerun] Change detected: 1 modified: index.haml
-16:15:15 [rerun] Sending signal TERM to 24868
-
-16:15:15 [rerun] Blockchain-pen launched
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <title>Blockchain Pen</title>
-    <meta content='Blockchain Pen - the easiest way to write immutable messages on the blockchain ' name='description'>
-    <meta content="Francesco 'makevoid' Canessa" name='author'>
-    <meta content='width=device-width, initial-scale=1' name='viewport'>
-    <meta content='http://blockchainpen.com/img/stylus.png' property='og:image'>
-    <!-- TODO: embed local font -->
-    <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
-    <link charset='utf-8' href='./css/vendor/normalize.css' media='screen' rel='stylesheet'>
-    <link charset='utf-8' href='./css/style.css' media='screen' rel='stylesheet'>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='row'>
-        <header>
-          <div class='row'>
-            <div class='one columns'>
-              <img src='/img/stylus.svg'>
-            </div>
-            <div class='five columns'>
-              <h1>Blockchain Pen</h1>
-            </div>
-          </div>
-        </header>
-        <div class='align-right address'>
-          <a href='javascript:void(0)'>1address</a>
-          <div class='row rel'>
-            <div class='qr hidden'></div>
-            <p>
-              You can send
-              <span class='messages_num'>0</span>
-              messages
-            </p>
-            <p class='topup_msg hidden'>You need to top-up!</p>
-          </div>
-        </div>
-        <div class='spacer50'></div>
-        <div class='bc_stylus'>
-          <div class='message_input'>
-            <div class='row align-right'>
-              <span class='chars_count'>
-                0
-              </span>
-              <span>
-                / 75 chars
-              </span>
-            </div>
-            <div class='spacer10'></div>
-            <div class='row'>
-              <div class='five columns'>
-                <textarea maxlength='1000' name='message' placeholder='paste hash or json here...' type='text'></textarea>
-              </div>
-              <div class='one columns'>
-                <button class='main'>
-                  Write
-                </button>
-              </div>
-              <div class='row'>
-                <div class='six columns hidden outcome'>
-                  loading...
-                </div>
-              </div>
-              <div class='extra_section'>
-                <a class='extra_btn' href='javascript:void(0)'>
-                  extra features
-                </a>
-                <div class='extra_content hidden'>
-                  <p>
-                    <a class='reveal_pvtkey' href='javascript:void(0)'>reveal private key</a>
-                  </p>
-                  <p>
-                    <a class='add_ew_prefix' href='javascript:void(0)'>add EternityWall prefix</a>
-                  </p>
-                  <p>
-                    <a href='http://github.com/makevoid/blockchain_pen_coffee'>view/edit the source code</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src='./vendor/zepto.js' type='text/javascript'></script>
-    <script src='./vendor/qrcode.js' type='text/javascript'></script>
-    <script src='./bower_components/bitcore/bitcore.min.js' type='text/javascript'></script>
-    <script src='./bower_components/blockchain-api-basic/bundle.js' type='text/javascript'></script>
-    <script src='./dist/bundle.js' type='text/javascript'></script>
-  </body>
-</html>
-
-16:15:17 [rerun] Blockchain-pen Launch Failed
-16:17:26 [rerun] Change detected: 1 modified: index.haml
-16:17:26 [rerun] Sending signal TERM to 24892
-
-16:17:26 [rerun] Blockchain-pen launched
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <title>Blockchain Pen</title>
-    <meta content='Blockchain Pen - the easiest way to write immutable messages on the blockchain ' name='description'>
-    <meta content="Francesco 'makevoid' Canessa" name='author'>
-    <meta content='width=device-width, initial-scale=1' name='viewport'>
-    <meta content='http://blockchainpen.com/img/stylus.png' property='og:image'>
-    <!-- TODO: embed local font -->
-    <!-- <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'> -->
-    <link charset='utf-8' href='./css/vendor/normalize.css' media='screen' rel='stylesheet'>
-    <link charset='utf-8' href='./css/style.css' media='screen' rel='stylesheet'>
-  </head>
-  <body>
-    <div class='container'>
-      <div class='row'>
-        <header>
-          <div class='row'>
-            <div class='one columns'>
-              <img src='/img/stylus.svg'>
-            </div>
-            <div class='five columns'>
-              <h1>Blockchain Pen</h1>
-            </div>
-          </div>
-        </header>
-        <div class='align-right address'>
-          <a href='javascript:void(0)'>1address</a>
-          <div class='row rel'>
-            <div class='qr hidden'></div>
-            <p>
-              You can send
-              <span class='messages_num'>0</span>
-              messages
-            </p>
-            <p class='topup_msg hidden'>You need to top-up!</p>
-          </div>
-        </div>
-        <div class='spacer50'></div>
-        <div class='bc_stylus'>
-          <div class='message_input'>
-            <div class='row align-right'>
-              <span class='chars_count'>
-                0
-              </span>
-              <span>
-                chars
-              </span>
-            </div>
-            <div class='spacer10'></div>
-            <div class='row'>
-              <div class='five columns'>
-                <textarea maxlength='1000' name='message' placeholder='paste hash or json here...' type='text'></textarea>
-              </div>
-              <div class='one columns'>
-                <button class='main'>
-                  Write
-                </button>
-              </div>
-              <div class='row'>
-                <div class='six columns hidden outcome'>
-                  loading...
-                </div>
-              </div>
-              <div class='extra_section'>
-                <a class='extra_btn' href='javascript:void(0)'>
-                  extra features
-                </a>
-                <div class='extra_content hidden'>
-                  <p>
-                    <a class='reveal_pvtkey' href='javascript:void(0)'>reveal private key</a>
-                  </p>
-                  <p>
-                    <a class='add_ew_prefix' href='javascript:void(0)'>add EternityWall prefix</a>
-                  </p>
-                  <p>
-                    <a href='http://github.com/makevoid/blockchain_pen_coffee'>view/edit the source code</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src='./vendor/zepto.js' type='text/javascript'></script>
-    <script src='./vendor/qrcode.js' type='text/javascript'></script>
-    <script src='./bower_components/bitcore/bitcore.min.js' type='text/javascript'></script>
-    <script src='./bower_components/blockchain-api-basic/bundle.js' type='text/javascript'></script>
-    <script src='./dist/bundle.js' type='text/javascript'></script>
-  </body>
-</html>
-
-16:17:28 [rerun] Blockchain-pen Launch Failed

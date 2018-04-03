@@ -1,10 +1,24 @@
 {
+  "name": "try_rematch",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "bitcore": "^0.13.5",
-    "blockchain-api-basic": "git://github.com/makevoid/blockchain-info-api-basic",
-    "superagent": "^1.4.0"
+    "@rematch/core": "^0.5.2",
+    "history": "^4.7.2",
+    "identicons": "^0.1.0",
+    "identicons-react": "^0.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "1.1.1"
   },
-  "devDependencies": {
-    "browserify": "^13.0.1"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

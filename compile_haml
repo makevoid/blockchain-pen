@@ -1,1 +1,0 @@
-rerun -p "*.{haml}" -- haml index.haml > index.html

@@ -7,8 +7,7 @@ Use it on:
 ### <http://blockchainpen.com>
 
 Your message will be stored into a bitcoin transaction.
-You  have to load some millibits in it to send a message to pay for the transaction fees. 
-
+You  have to load some millibits in it to send a message to pay for the transaction fees.
 
 The transaction cost is 0.1 mBTC (millibitcoin, that's 0.0001 BTC).
 
@@ -16,7 +15,6 @@ You can load the funds from your wallet / keychain software to the bitcoin accou
 
 Enjoy!
 
-[@makevoid](http://twitter.com/makevoid)
 
 ---
 
@@ -37,54 +35,25 @@ that's basically it!
 ![](http://mkvd.s3.amazonaws.com/pics/blockchainpen_mindblown.png)
 </a>
 
-enjoy!
+---
 
-### For Developers:
+### Run
 
-download the source:
+`npm start`
 
-    git clone https://github.com/makevoid/blockchain_pen_coffee
-
-install bower if you haven't got it already:
-
-    npm i -g bower 
-
-run `bower`:
-
-    bower install
+This command starts the app in development mode.
 
 
-run it:
+### Build
 
-    python -m SimpleHTTPServer 3000
+This app is based on create-react-app. This means you can run:
 
+`npm run build`
 
-open <http://localhost:3000>
+This will build the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Edits
-
-run `guard` to compile the coffeescript files into js
-
-yes,
-
-run:
-
-    guard
-
-
-### Node
-
-if you want to run pen_cli.coffee with nodejs
-
-Get Coffee:
-
-    npm install -g coffee-script
-
-
-run:
-
-    coffee pen_cli.coffee
-    
+---
 
 ### Eternity Wall
 
@@ -95,4 +64,8 @@ You can use Blockchain Pen to write to EternityWall, just prepend `EW ` in front
 You can put an hashtag or something, and then search your messages afterwards: http://eternitywall.it/search?q=makevoid
 
 
-Enjoy!!!
+---
+
+Enjoy!
+
+[@makevoid](http://twitter.com/makevoid)

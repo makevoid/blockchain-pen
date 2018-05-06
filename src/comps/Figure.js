@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import identicons from 'identicons'
 import './Figure.css';
 
@@ -9,7 +8,7 @@ const Identicon = props => {
 
   return (
     <div className="Identicon">
-      <img src={svgData} />
+      <img src={svgData} alt=""/>
     </div>
   )
 }

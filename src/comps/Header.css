@@ -1,3 +1,19 @@
+.Header {
+  color: #222;
+}
+
+.Header *:hover {
+  color: #555;
+}
+
+.Header *:hover a {
+  color: #555;
+}
+
+.Header a:hover img {
+  opacity: 0.8;
+}
+
 .Header h1.title {
   margin-bottom: 26px;
 }

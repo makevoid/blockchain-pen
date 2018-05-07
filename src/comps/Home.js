@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Info from './Info'
-import AddressIdenticon from './AddressIdenticon'
+import SenderIdentity from './SenderIdentity'
 import MessageForm from './MessageForm'
 
 class Home extends Component {
@@ -14,9 +14,10 @@ class Home extends Component {
               <Info />
             </div>
           </div>
+          <div className="s20"></div>
 
           <article className="media">
-            <AddressIdenticon />
+            <SenderIdentity />
             <MessageForm />
           </article>
 

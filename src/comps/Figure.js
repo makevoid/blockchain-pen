@@ -1,17 +1,6 @@
 import React from 'react';
-import identicons from 'identicons'
+import Identicon from './Identicon';
 import './Figure.css';
-
-const Identicon = props => {
-  const options = { width: 200, size: 3 }
-  const svgData = identicons.generateSVGDataURIString(props.address, options)
-
-  return (
-    <div className="Identicon">
-      <img src={svgData} alt=""/>
-    </div>
-  )
-}
 
 const Figure = props => (
   <div className="Figure">

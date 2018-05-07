@@ -1,12 +1,12 @@
 /* identicon css */
 
-.Identicon {
+.Figure .Identicon {
   padding: 20px;
   background: #F5F5F5;
   text-align: center;
 }
 
-.Identicon img {
+.Figure .Identicon img {
   margin: 0 auto;
   width: 80px;
 }

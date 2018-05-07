@@ -1,10 +1,11 @@
-import React from 'react';
-import Figure from './Figure'
+import React from 'react'
+import Identicon from './Identicon'
 import { connect } from 'react-redux'
+import './AddressIdenticon.css'
 
 const AddressIdenticon = props => (
-  <div>
-    <Figure address={props.address} />
+  <div class="AddressIdenticon">
+    <Identicon address={props.address} />
   </div>
 )
 

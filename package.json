@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@rematch/core": "^0.5.2",
+    "bitcoinjs-keychain": "github:makevoid/bitcoinjs-keychain",
     "history": "^4.7.2",
     "identicons": "^0.1.0",
     "identicons-react": "^0.1.0",

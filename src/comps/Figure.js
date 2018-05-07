@@ -4,7 +4,7 @@ import './Figure.css';
 
 const Identicon = props => {
   const options = { width: 200, size: 3 }
-  const svgData = identicons.generateSVGDataURIString('1address', options)
+  const svgData = identicons.generateSVGDataURIString(props.address, options)
 
   return (
     <div className="Identicon">
@@ -15,8 +15,8 @@ const Identicon = props => {
 
 const Figure = props => (
   <div className="Figure">
-    <Identicon />
-    <p className="has-text-centered">1adaaadress</p>
+    <Identicon address={props.address} />
+    <p className="has-text-centered">{ props.address }</p>
   </div>
 )
 

@@ -1,8 +1,10 @@
 import reducers from '../reducers/count'
 import effects from '../effects/count'
 
+const initialState = 0
+
 const count = {
-  state: 0, // initial state
+  state:    initialState,
   reducers: reducers,
   effects:  effects,
 }

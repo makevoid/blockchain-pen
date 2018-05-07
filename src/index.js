@@ -24,3 +24,8 @@ ReactDOM.render(
 )
 
 registerServiceWorker()
+
+;(async () => {
+  await new Promise(resolve => setTimeout(resolve, 200))
+  store.dispatch.keychain.initialize()
+})()

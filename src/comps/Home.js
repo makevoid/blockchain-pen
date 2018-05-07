@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import Figure from './Figure'
+import Info from './Info'
+import AddressIdenticon from './AddressIdenticon'
+import Counters from './Counters'
 
 class Home extends Component {
   render() {
@@ -9,13 +11,12 @@ class Home extends Component {
 
           <div className="columns">
             <div className="column has-text-right">
-              <div>Bitcon Address: 1address</div>
-              <div>x messages</div>
+              <Info />
             </div>
           </div>
 
           <article className="media">
-            <Figure address="1abc" />
+            <AddressIdenticon />
             <div className="media-content">
               <div className="field">
                 <p className="control">
@@ -30,9 +31,7 @@ class Home extends Component {
                 </div>
                 <div className="level-right">
                   <div className="level-item">
-                    0 / 75 chars - 1 message - x mbtc
-                    { // 76 chars - 2 message - x mbtc
-                    }
+                    <Counters />
                   </div>
                 </div>
               </nav>

@@ -3,15 +3,14 @@ import { connect } from 'react-redux'
 
 const Counters = props => (
   <div>
-    {console.log(props)}
-    {props.chars} / 75 chars - {props.messages} message(s) - {props.balance} mbtc
+    {props.charCount} / 75 chars - {props.messages} message(s) - {props.balance} mbtc
   </div>
 )
 
 const mapState = state => ({
-  balance:  state.keychain.balance,
-  messages: state.counters.messages,
-  chars:    state.counters.chars,
+  balance:   state.keychain.balance,
+  messages:  state.message.messageCount,
+  charCount: state.message.charCount,
 })
 
 const mapDispatch = dispatch => ({

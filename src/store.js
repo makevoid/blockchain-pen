@@ -2,7 +2,7 @@ import { init } from '@rematch/core'
 import { routerReducer } from 'react-router-redux'
 import count from './models/count'
 import keychain from './models/keychain'
-import counters from './models/counters'
+import message from './models/message'
 
 // import { routerReducer, routerMiddleware } from 'react-router-redux'
 // import createHistory from 'history/createBrowserHistory'
@@ -13,7 +13,7 @@ const store = init({
   models: {
     count,
     keychain,
-    counters,
+    message,
   },
   redux: {
     reducers: {

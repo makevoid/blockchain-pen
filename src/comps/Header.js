@@ -8,11 +8,12 @@ const Header = () => {
       <section className="hero">
         <div className="hero-body">
           <div className="container has-text-centered">
-          <Link to="/">
-            <img alt="Blockchain Pen (logo)" className="logo" src="/img/stylus.png" />
-            <h1 className="title">
-              Blockchain Pen
-            </h1></Link>
+            <a href="/">
+              <img alt="Blockchain Pen (logo)" className="logo" src="/img/stylus.png" />
+              <h1 className="title">
+                Blockchain Pen
+              </h1>
+            </a>
             <h2 className="subtitle is-6">
               write permanent messages on the blockchain
             </h2>

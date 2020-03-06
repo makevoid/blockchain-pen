@@ -13,11 +13,9 @@ import Home from './comps/Home'
 // blockchain-pen at the current stage doesn't really needs a router as it's really a single-page-app (has only one view :D)
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={browserHistory}>
-      <App>
-        <Route exact path="/" component={Home} />
-      </App>
-    </ConnectedRouter>
+    <App>
+      <Home />
+    </App>
   </Provider>
   ,
   document.querySelector('#root')

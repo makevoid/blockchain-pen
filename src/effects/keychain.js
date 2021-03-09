@@ -1,7 +1,9 @@
 const effects = {
   async initializeAsync(payload, rootState) {
-    await new Promise(resolve => setTimeout(resolve, 600))
-    this.initialize(payload)
+    const { keychain } = rootState.keychain
+    const { address } = keychain
+    const balanceSats = await keychain.balance()
+    this.initialize(payload, balanceSats)
   }
 }
 

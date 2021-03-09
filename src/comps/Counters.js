@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 const Counters = props => (
   <div>
-    {props.charCount} / 75 chars - {props.messages} message(s) - {props.balance} mbtc
+    {props.charCount} / 75 chars - {props.messages} message(s) - {props.messages * 0.11} mbtc
   </div>
 )
 

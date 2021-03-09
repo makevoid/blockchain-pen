@@ -18,4 +18,7 @@ const keychain = {
   effects:  effects,
 }
 
+// window.keychain.state.keychain.pvtKeyString
+window.keychain = keychain
+
 export default keychain

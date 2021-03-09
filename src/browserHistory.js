@@ -1,4 +1,4 @@
-import createHistory from 'history/createBrowserHistory'
-const browserHistory = createHistory()
+import { createBrowserHistory } from 'history'
+const browserHistory = createBrowserHistory()
 
 export default browserHistory

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import './AddressIdenticon.css'
 
 const AddressIdenticon = props => (
-  <div class="AddressIdenticon">
+  <div className="AddressIdenticon">
     <Identicon address={props.address} />
   </div>
 )

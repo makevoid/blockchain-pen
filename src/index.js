@@ -25,5 +25,5 @@ registerServiceWorker()
 
 ;(async () => {
   await new Promise(resolve => setTimeout(resolve, 200))
-  store.dispatch.keychain.initialize()
+  await store.dispatch.keychain.initializeAsync()
 })()

@@ -1,10 +1,11 @@
 # Blockchain Pen
 
+Status: WIP - project not working anymore as I'm working on the new UI
+
+---
+
 A Pen (and webapp) to write "eternal" messages into the Blockchain.
 
-Use it on:
-
-### <http://blockchainpen.com>
 
 Your message will be stored into a bitcoin transaction.
 You  have to load some millibits in it to send a message to pay for the transaction fees.
